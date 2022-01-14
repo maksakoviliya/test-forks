@@ -7,6 +7,7 @@ export default createStore({
     totalForks: 0,
     loading: false,
     error: null,
+    favorite: JSON.parse(localStorage.getItem("favorite")) ?? [],
   },
   mutations: {
     SET_FORKS(state, payload) {
@@ -20,6 +21,17 @@ export default createStore({
     },
     SET_ERROR(state, payload) {
       state.error = payload;
+    },
+    ADD_TO_FAVORITE(state, payload) {
+      state.favorite.push(payload);
+      localStorage.setItem("favorite", JSON.stringify(state.favorite));
+    },
+    REMOVE_FROM_FAVORITE(state, payload) {
+      state.favorite.splice(
+        state.favorite.findIndex((item) => item == payload),
+        1
+      );
+      localStorage.setItem("favorite", JSON.stringify(state.favorite));
     },
   },
   actions: {
