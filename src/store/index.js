@@ -6,6 +6,7 @@ export default createStore({
     forks: [],
     totalForks: 0,
     loading: false,
+    error: null,
   },
   mutations: {
     SET_FORKS(state, payload) {
@@ -16,6 +17,9 @@ export default createStore({
     },
     SET_LOADING(state, payload) {
       state.loading = payload;
+    },
+    SET_ERROR(state, payload) {
+      state.error = payload;
     },
   },
   actions: {
@@ -36,6 +40,7 @@ export default createStore({
       { owner, repositoryName, page = 1, per_page = 10 }
     ) {
       commit("SET_LOADING", true);
+      commit("SET_ERROR", null);
       commit("SET_FORKS", []);
       dispatch("fetchTotalForks", {
         owner: owner,
@@ -53,6 +58,9 @@ export default createStore({
         })
         .then((res) => {
           commit("SET_FORKS", res.data);
+        })
+        .catch((e) => {
+          commit("SET_ERROR", e.response);
         })
         .finally(() => {
           commit("SET_LOADING", false);
