@@ -1,9 +1,10 @@
 <template>
-  <div class="max-w-5xl mx-auto mt-10">
+  <div class="max-w-5xl mx-auto my-10">
     <search @search="fetch" />
 
     <div
       class="shadow overflow-auto mt-12 border-b border-gray-200 sm:rounded-lg"
+      v-if="!loading"
     >
       <table class="min-w-full divide-y divide-gray-200">
         <thead class="bg-gray-50">
@@ -114,7 +115,7 @@ export default {
         },
         {
           key: "stargazers_count",
-          label: "Рейтинг",
+          label: "Кол-во звезд",
         },
         {
           key: "clone_url",
@@ -141,7 +142,7 @@ export default {
   },
 
   computed: {
-    ...mapState(["forks", "totalForks"]),
+    ...mapState(["forks", "totalForks", "loading"]),
   },
 
   methods: {

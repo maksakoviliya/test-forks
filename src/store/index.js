@@ -5,6 +5,7 @@ export default createStore({
   state: {
     forks: [],
     totalForks: 0,
+    loading: false,
   },
   mutations: {
     SET_FORKS(state, payload) {
@@ -19,6 +20,7 @@ export default createStore({
   },
   actions: {
     fetchTotalForks({ commit }, { owner, repositoryName }) {
+      commit("SET_TOTAL_FORKS", 0);
       axios
         .get(`https://api.github.com/repos/${owner}/${repositoryName}`, {
           headers: {
@@ -33,6 +35,7 @@ export default createStore({
       { commit, dispatch },
       { owner, repositoryName, page = 1, per_page = 10 }
     ) {
+      commit("SET_LOADING", true);
       commit("SET_FORKS", []);
       dispatch("fetchTotalForks", {
         owner: owner,
@@ -50,6 +53,9 @@ export default createStore({
         })
         .then((res) => {
           commit("SET_FORKS", res.data);
+        })
+        .finally(() => {
+          commit("SET_LOADING", false);
         });
     },
   },
