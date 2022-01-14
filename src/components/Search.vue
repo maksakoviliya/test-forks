@@ -25,38 +25,6 @@ export default {
   name: "Search",
 
   computed: {
-    // owner: {
-    //   get() {
-    //     return this.$route.query?.owner ?? "";
-    //   },
-    //   set(val) {
-    //     console.log('set owner', val)
-    //     this.$router.push({
-    //       name: this.$route.name,
-    //       query: Object.assign(
-    //         {},
-    //         { repositoryName: this.$route.query.repositoryName },
-    //         { owner: val }
-    //       ),
-    //     });
-    //   },
-    // },
-    // repositoryName: {
-    //   get() {
-    //     return this.$route.query?.repositoryName ?? "";
-    //   },
-    //   set(val) {
-    //     console.log('set rep name', val)
-    //     this.$router.push({
-    //       name: this.$route.name,
-    //       query: Object.assign(
-    //         {},
-    //         { owner: this.$route.query.owner },
-    //         { repositoryName: val }
-    //       ),
-    //     });
-    //   },
-    // },
     search: {
       get() {
         return this.$route.query.repositoryName
@@ -64,7 +32,6 @@ export default {
           : this.$route.query.owner;
       },
       set(val) {
-        console.log("search val", val);
         let res = val.split("/");
         let q = {};
         if (res[0]) {

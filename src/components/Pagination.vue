@@ -24,8 +24,12 @@
             {{ " " }}
             по
             {{ " " }}
-            <span class="font-bold" v-if="canMoveNext">{{ page * perPage }}</span>
-            <span class="font-bold" v-else>{{ (total % perPage) + (page - 1) * perPage }}</span>
+            <span class="font-bold" v-if="canMoveNext">{{
+              page * perPage
+            }}</span>
+            <span class="font-bold" v-else>{{
+              (total % perPage) + (page - 1) * perPage
+            }}</span>
             {{ " " }}
             из
             {{ " " }}
@@ -45,7 +49,11 @@
                 params: $route.params,
                 query: Object.assign({}, $route.query, { page: page - 1 }),
               }"
-              :class="canMovePrev ? 'bg-white hover:bg-gray-50' : 'pointer-events-none bg-gray-100'"
+              :class="
+                canMovePrev
+                  ? 'bg-white hover:bg-gray-50'
+                  : 'pointer-events-none bg-gray-100'
+              "
               class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-100 text-xs font-medium text-gray-500"
             >
               <span class="sr-only">Previous</span>
@@ -90,7 +98,11 @@
                 params: $route.params,
                 query: Object.assign({}, $route.query, { page: page + 1 }),
               }"
-              :class="canMoveNext ? 'bg-white hover:bg-gray-50' : 'pointer-events-none bg-gray-100'"
+              :class="
+                canMoveNext
+                  ? 'bg-white hover:bg-gray-50'
+                  : 'pointer-events-none bg-gray-100'
+              "
               class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-100 text-xs font-medium text-gray-500"
             >
               <span class="sr-only">Next</span>
@@ -155,33 +167,35 @@ export default {
       const visiblePagesThreshold = (visiblePagesCount - 1) / 2;
       const paginationTriggersArray = Array(visiblePagesCount - 1).fill(0);
 
-      console.log("currentPage", currentPage);
-      console.log("visiblePagesThreshold", visiblePagesThreshold);
-      console.log("totalPages - currentPage", pageCount - currentPage);
-      // console.log('pageCount - visiblePagesThreshold + 1', pageCount - visiblePagesThreshold + 1)
       if (currentPage <= visiblePagesThreshold + 1) {
         paginationTriggersArray[0] = 1;
-        const paginationTriggers = paginationTriggersArray.map((paginationTrigger, index) => {
-          return paginationTriggersArray[0] + index;
-        });
+        const paginationTriggers = paginationTriggersArray.map(
+          (paginationTrigger, index) => {
+            return paginationTriggersArray[0] + index;
+          }
+        );
         paginationTriggers.push("...");
         paginationTriggers.push(pageCount);
         return paginationTriggers;
       }
 
       if (currentPage >= pageCount - visiblePagesThreshold) {
-        const paginationTriggers = paginationTriggersArray.map((paginationTrigger, index) => {
-          return pageCount - index;
-        });
+        const paginationTriggers = paginationTriggersArray.map(
+          (paginationTrigger, index) => {
+            return pageCount - index;
+          }
+        );
         paginationTriggers.push("...");
         paginationTriggers.reverse().unshift(1);
         return paginationTriggers;
       }
 
       paginationTriggersArray[0] = currentPage - visiblePagesThreshold + 1;
-      const paginationTriggers = paginationTriggersArray.map((paginationTrigger, index) => {
-        return paginationTriggersArray[0] + index;
-      });
+      const paginationTriggers = paginationTriggersArray.map(
+        (paginationTrigger, index) => {
+          return paginationTriggersArray[0] + index;
+        }
+      );
       paginationTriggers.unshift("...");
       paginationTriggers.unshift(1);
       if (pageCount - currentPage > visiblePagesThreshold) {
