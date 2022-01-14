@@ -144,6 +144,7 @@
       </div>
       <template v-else> Форков не найдено </template>
     </div>
+    <div v-if="loading" class="text-4xl">...Loading...</div>
 
     <modal :show-modal="showModal" @close="hideFavoriteModal">
       <template v-if="!favorite.includes(active)">
@@ -270,11 +271,11 @@ export default {
     },
     addToFavorite() {
       this.ADD_TO_FAVORITE(this.active);
-      this.hideFavoriteModal()
+      this.hideFavoriteModal();
     },
     removeFromFavorite() {
       this.REMOVE_FROM_FAVORITE(this.active);
-      this.hideFavoriteModal()
+      this.hideFavoriteModal();
     },
   },
 
