@@ -4,7 +4,7 @@
 
     <div
       class="shadow overflow-auto mt-12 border-b border-gray-200 sm:rounded-lg"
-      v-if="!loading"
+      v-if="forks.length"
     >
       <table class="min-w-full divide-y divide-gray-200">
         <thead class="bg-gray-50">
@@ -87,6 +87,9 @@
       </table>
 
       <pagination :total="totalForks" class="p-4"></pagination>
+    </div>
+    <div class="text-gray-600 mt-10 text-lg text-center font-bold tracking-wide" v-else>
+      Форков не найдено
     </div>
     <!--    <div v-for="fork in forks" :key="fork.id">-->
     <!--      {{ fork }}-->
