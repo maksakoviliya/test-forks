@@ -1,18 +1,29 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div class="max-w-md mx-auto mt-60">
+    <search @search="handleSearch" />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import Search from "@/components/Search";
+import { mapActions } from "vuex";
 
 export default {
   name: "Home",
+
   components: {
-    HelloWorld,
+    Search,
+  },
+
+  methods: {
+    ...mapActions(["fetchRepoForks"]),
+    async handleSearch() {
+      await this.fetchRepoForks({
+        owner: this.$route.query.owner,
+        repositoryName: this.$route.query.repositoryName,
+      });
+      await this.$router.push({ name: "Forks", query: this.$route.query });
+    },
   },
 };
 </script>
